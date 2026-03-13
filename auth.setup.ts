@@ -1,5 +1,5 @@
 import { chromium, FullConfig } from '@playwright/test';
-import { ENV } from '../../config/env';
+import { ENV } from './config/env';
 
 async function globalSetup(config: FullConfig) {
 
