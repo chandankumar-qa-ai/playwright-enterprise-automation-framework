@@ -40,7 +40,7 @@ export default defineConfig({
     screenshot:'only-on-failure',
     video:'retain-on-failure',
     trace: 'retain-on-failure',
-    headless:false,
+    headless: !!process.env.CI,
     
     
   },
