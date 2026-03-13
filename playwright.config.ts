@@ -29,7 +29,7 @@ export default defineConfig({
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: [['html'],['allure-playwright']],
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
-  globalSetup: './tests/setup/auth.setup.ts',
+  globalSetup: './auth.setup.ts',
   use: {
     /* Base URL to use in actions like `await page.goto('')`. */
     // baseURL: 'http://localhost:3000',
@@ -40,7 +40,7 @@ export default defineConfig({
     screenshot:'only-on-failure',
     video:'retain-on-failure',
     trace: 'retain-on-failure',
-    headless:true,
+    headless:false,
     
     
   },
