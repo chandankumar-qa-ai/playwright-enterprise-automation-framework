@@ -1,4 +1,6 @@
 import { defineConfig, devices } from '@playwright/test';
+import dotenv from 'dotenv';
+import path from 'path';
 
 /**
  * Read environment variables from file.
@@ -7,6 +9,8 @@ import { defineConfig, devices } from '@playwright/test';
 // import dotenv from 'dotenv';
 // import path from 'path';
 // dotenv.config({ path: path.resolve(__dirname, '.env') });
+const env=process.env.TEST_ENV || 'qa'
+dotenv.config({path:`.env.${env}`})
 
 /**
  * See https://playwright.dev/docs/test-configuration.
@@ -23,7 +27,7 @@ export default defineConfig({
   /* Opt out of parallel tests on CI. */
   workers: process.env.CI ? 1 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  reporter: 'html',
+  reporter: [['html'],['allure-playwright']],
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   globalSetup: './tests/setup/auth.setup.ts',
   use: {
@@ -31,7 +35,7 @@ export default defineConfig({
     // baseURL: 'http://localhost:3000',
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
-    baseURL: 'https://www.saucedemo.com',
+    baseURL: process.env.BASE_URL,
     storageState: 'storageState.json',
     screenshot:'only-on-failure',
     video:'retain-on-failure',
