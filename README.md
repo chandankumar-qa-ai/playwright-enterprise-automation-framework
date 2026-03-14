@@ -1,14 +1,9 @@
 # Playwright Enterprise Automation Framework
-# Playwright Enterprise Automation Framework
 
-![Playwright Tests](https://github.com/chandankumar-qa-ai/playwright-enterprise-automation-framework/actions/workflows/playwright.yml/badge.svg)
-
-[![Allure Report](https://img.shields.io/badge/Allure%20Report-Live-blue)](https://chandankumar-qa-ai.github.io/playwright-enterprise-automation-framework/)# Playwright Enterprise Automation Framework
 
 ![Playwright Tests](https://github.com/chandankumar-qa-ai/playwright-enterprise-automation-framework/actions/workflows/playwright.yml/badge.svg)
 
 [![Allure Report](https://img.shields.io/badge/Allure%20Report-Live-blue)](https://chandankumar-qa-ai.github.io/playwright-enterprise-automation-framework/)
-
 
 
 ## Overview
