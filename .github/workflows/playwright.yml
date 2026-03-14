@@ -7,7 +7,7 @@ on:
     branches: [ main ]
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -66,8 +66,8 @@ jobs:
          name: test-results
          path: test-results/
 
-      - name: Deploy to GitHub Pages
-        uses: actions/deploy-pages@v4
+    #  - name: Deploy to GitHub Pages
+      #  uses: actions/deploy-pages@v4
 
       - name: Checkout GitHub Pages branch
         uses: actions/checkout@v4
@@ -95,4 +95,5 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./allure-report
+          publish_branch: gh-pages
           keep_files: true
