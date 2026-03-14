@@ -46,11 +46,25 @@ jobs:
       - name: Create run folder
         run: |
           RUN_ID=${{ github.run_number }}
+
           mkdir -p publish/run-$RUN_ID
           cp -r allure-report/* publish/run-$RUN_ID
 
           mkdir -p publish/latest
           cp -r allure-report/* publish/latest
+
+          cat <<EOF > publish/index.html
+          <!DOCTYPE html>
+          <html>
+          <head>
+          <meta http-equiv="refresh" content="0; url=latest/" />
+          <title>Redirecting...</title>
+          </head>
+          <body>
+          <p>Redirecting to latest test report...</p>
+          </body>
+          </html>
+             EOF
 
       - name: Deploy to GitHub Pages
         if: always()
