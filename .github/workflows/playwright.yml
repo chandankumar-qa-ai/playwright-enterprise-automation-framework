@@ -85,8 +85,10 @@ jobs:
       - name: Save Allure history
         run: |
          mkdir -p allure-history
-         mkdir -p allure-history cp -r allure-report/history/* allure-history/
-
+         if [ -d "allure-report/history" ]; then
+         cp -r allure-report/history/* allure-history/
+         fi
+  
       - name: Deploy report to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
