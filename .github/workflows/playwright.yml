@@ -46,11 +46,10 @@ jobs:
           npx allure generate allure-results --clean -o allure-report
          
 
-      - name: Upload GitHub Pages Artifact
-        uses: actions/upload-pages-artifact@v3
+      - name: Upload GitHub Pages build Artifact
+        uses: actions/upload-pages-artifact@v4
         if: always()
         with:
-          name: github-pages
           path: allure-report/
 
       - name: Upload Playwright Report
@@ -86,7 +85,7 @@ jobs:
       - name: Save Allure history
         run: |
          mkdir -p allure-history
-         cp -r allure-report/history allure-history
+         mkdir -p allure-history cp -r allure-report/history/* allure-history/
 
       - name: Deploy report to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
