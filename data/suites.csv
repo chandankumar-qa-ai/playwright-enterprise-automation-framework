@@ -1,0 +1,8 @@
+"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
+"","712","@smoke Login with Valid Credential","chromium","2026-03-14","passed","2026-03-14","","smoke/login.spec.ts","",""
+"","697","@regression Cart Page Validation","chromium","2026-03-14","passed","2026-03-14","","regression/cart.spec.ts","",""
+"","606","@regression Finish The Order","chromium","2026-03-14","passed","2026-03-14","","regression/Overview.spec.ts","",""
+"","1764","@login Login with Valid Credential","chromium","2026-03-13","passed","2026-03-13","","smoke\login.spec.ts","",""
+"","702","@regression Checkout the Product","chromium","2026-03-14","passed","2026-03-14","","regression/checkout.spec.ts","",""
+"","590","@regression Checkout Complete Page","chromium","2026-03-14","passed","2026-03-14","","regression/checkoutcomplete.spec.ts","",""
+"","1033","@regression Add Product to the Cart","chromium","2026-03-14","passed","2026-03-14","","regression/addToCart.spec.ts","",""
