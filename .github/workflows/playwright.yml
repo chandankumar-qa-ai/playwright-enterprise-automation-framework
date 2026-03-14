@@ -46,8 +46,8 @@ jobs:
           npx allure generate allure-results --clean -o allure-report
          
 
-      - name: Upload GitHub Pages Artifact
-        uses: actions/upload-pages-artifact@v3
+      - name: Upload GitHub Pages build Artifact
+        uses: actions/upload-pages-artifact@v4
         if: always()
         with:
           name: github-pages
