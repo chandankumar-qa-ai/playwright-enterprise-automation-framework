@@ -77,9 +77,9 @@ jobs:
 
       - name: Load Allure history
         run: |
-         mkdir -p allure-results/history
-         if [ -d gh-pages/history ]; then
-         cp -r gh-pages/history allure-results/
+         git clone --depth 1 --branch gh-pages https://github.com/${{ github.repository }} gh-pages || true
+         if [ -d "gh-pages/allure-history" ]; then
+         cp -r gh-pages/allure-history ./allure-history
          fi
 
       - name: Save Allure history
