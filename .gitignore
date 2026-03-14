@@ -25,3 +25,6 @@ Thumbs.db
 
 # coverage
 coverage/
+
+# allure-history
+allure-history/
