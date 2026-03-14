@@ -46,11 +46,7 @@ jobs:
           npx allure generate allure-results --clean -o allure-report
          
 
-      - name: Upload GitHub Pages build Artifact
-        uses: actions/upload-pages-artifact@v4
-        if: always()
-        with:
-          path: allure-report/
+   
 
       - name: Upload Playwright Report
         uses: actions/upload-artifact@v4
@@ -66,8 +62,7 @@ jobs:
          name: test-results
          path: test-results/
 
-    #  - name: Deploy to GitHub Pages
-      #  uses: actions/deploy-pages@v4
+  
 
       - name: Checkout GitHub Pages branch
         uses: actions/checkout@v4
