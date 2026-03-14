@@ -84,6 +84,7 @@ jobs:
 
       - name: Save Allure history
         run: |
+         rm -rf allure-history
          mkdir -p allure-history
          if [ -d "allure-report/history" ]; then
          cp -r allure-report/history/* allure-history/
