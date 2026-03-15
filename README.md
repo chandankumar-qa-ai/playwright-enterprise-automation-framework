@@ -8,121 +8,136 @@
 
 ## Overview
 
-This project is a **Playwright-based end-to-end automation framework** built using **TypeScript** and designed following **modern automation architecture practices used in real QA teams**.
+This branch currently contains a Playwright UI automation framework for the SauceDemo e-commerce application, built with TypeScript and organized using patterns commonly used in QA teams.
 
-The framework automates the **SauceDemo e-commerce application** and validates the **complete purchase flow** including:
+The current automated flow covers:
 
-* Login
-* Product selection
-* Add to cart
-* Checkout validation
+- Login
+- Product selection
+- Add to cart
+- Cart validation
+- Checkout flow
+- Order completion
 
-The framework demonstrates **scalable automation design**, CI/CD integration, authentication reuse, and reporting.
+The framework uses Page Object Model, custom Playwright fixtures, authenticated session reuse, environment-based configuration, and CI reporting.
+
+---
+
+# Current Status
+
+- UI automation is implemented and runnable
+- Authentication is handled through Playwright `globalSetup`
+- Test coverage is organized under `smoke`, `regression`, and `visual`
+- Chromium is the only active browser project
+- HTML and Allure reporting are enabled
+- API automation is not implemented in this branch yet
 
 ---
 
 # Tech Stack
 
-* Playwright
-* TypeScript
-* Node.js
-* GitHub Actions (CI/CD)
-* Allure Reporting
-* Playwright HTML Reporting
+- Playwright
+- TypeScript
+- Node.js
+- Dotenv
+- GitHub Actions
+- Allure Reporting
+- Playwright HTML Report
 
 ---
 
-# Framework Features
+# Framework Highlights
 
-### Page Object Model (POM)
+### Page Object Model
 
-All UI interactions are encapsulated inside page classes to improve maintainability and readability.
+UI interactions are wrapped in page classes under `pages/`.
 
-Example pages:
+Current page objects include:
 
-* LoginPage
-* InventoryPage
-* CartPage
-* CheckoutPage
+- `LoginPage`
+- `InventoryPage`
+- `CartPage`
+- `CheckoutPage`
+- `OverviewPage`
+- `CheckoutCompletePage`
 
 ---
 
 ### Playwright Fixtures
 
-Page objects are injected using **custom Playwright fixtures**, eliminating the need to create page objects manually in tests.
+Page objects are exposed through `fixtures/pageFixture.ts`, so tests can use them directly without constructing page classes in each spec.
 
 Example test:
 
-```
-test('add product to cart', async ({ inventoryPage }) => {
-  await inventoryPage.addProductToCart('Sauce Labs Backpack')
-})
+```ts
+test("@regression Add Product to the Cart", async ({ inventoryPage, cartPage, page }) => {
+  await page.goto("/inventory.html");
+  await inventoryPage.AddProduct(["Sauce Labs Bike Light"]);
+  await inventoryPage.gotoCart();
+});
 ```
 
 ---
 
 ### Authentication Handling
 
-Authentication is executed once using **Playwright global setup**.
+Authentication is executed once through `tests/setup/auth.setup.ts` using Playwright `globalSetup`.
 
-The login session is stored using:
+The session is stored in:
 
-```
+```text
 storageState.json
 ```
 
-This allows tests to start **already authenticated**, improving execution speed and reliability.
+This allows the main UI flow tests to start in an authenticated state.
 
 ---
 
 ### Environment Configuration
 
-The framework uses environment variables for configuration.
+The framework loads environment values from `.env.<environment>` based on `TEST_ENV`.
 
-Credentials and URLs are loaded using:
+Current environment files in the project:
 
-```
-.env
-```
+- `.env.qa`
+- `.env.uat`
+- `.env.prod`
+
+If `TEST_ENV` is not set, the framework defaults to `qa`.
 
 Example:
 
-```
+```env
 BASE_URL=https://www.saucedemo.com
 SAUCE_USERNAME=standard_user
 SAUCE_PASSWORD=secret_sauce
 ```
 
-In CI pipelines the same values are provided via **GitHub Secrets**.
+PowerShell example:
+
+```powershell
+$env:TEST_ENV = "uat"
+npm run test
+```
+
+In CI, the same values are provided through GitHub Secrets.
 
 ---
 
 ### Reporting
 
-The framework supports two reporting systems.
+The project supports:
 
-#### Playwright HTML Report
+- Playwright HTML report
+- Allure report
+- Failure screenshots
+- Failure videos
+- Failure traces
 
-Generate report locally:
+Generate reports locally:
 
-```
+```bash
 npm run report
-```
-
----
-
-#### Allure Reporting
-
-Allure provides advanced dashboards including:
-
-* test history
-* failure details
-* execution timeline
-* attachments
-
-Generate locally:
-
-```
 npm run allure:generate
 npm run allure:open
 ```
@@ -131,34 +146,68 @@ npm run allure:open
 
 ### CI/CD Pipeline
 
-Tests automatically execute using **GitHub Actions** whenever code is pushed.
+GitHub Actions is configured in `.github/workflows/playwright.yml`.
 
-Pipeline stages:
+Current workflow behavior:
 
-1. Install dependencies
-2. Install Playwright browsers
-3. Execute tests
-4. Generate Allure report
-5. Upload test artifacts
-
-CI pipeline runs **in headless mode** to ensure compatibility with the Linux environment.
+- Triggers on pushes to `main`
+- Uses Node.js 20
+- Installs dependencies
+- Installs Playwright browsers with dependencies
+- Runs the Playwright suite
+- Generates Allure output
+- Publishes the report to GitHub Pages
 
 ---
 
 ### Test Artifacts
 
-On failure, the pipeline automatically captures:
+On failure, Playwright retains:
 
-* Screenshots
-* Videos
-* Playwright trace files
-
-Artifacts are uploaded in GitHub Actions and can be downloaded after each run.
+- Screenshots
+- Videos
+- Trace files
 
 ---
 
 # Project Structure
 
+```text
+playwright-enterprise-automation-framework
+|-- .github
+|   `-- workflows
+|       `-- playwright.yml
+|-- config
+|   `-- env.ts
+|-- fixtures
+|   `-- pageFixture.ts
+|-- pages
+|   |-- BasePage.ts
+|   |-- CartPage.ts
+|   |-- CheckoutCompletePage.ts
+|   |-- CheckoutPage.ts
+|   |-- InventoryPage.ts
+|   |-- LoginPage.ts
+|   `-- OverviewPage.ts
+|-- tests
+|   |-- regression
+|   |   |-- Overview.spec.ts
+|   |   |-- addToCart.spec.ts
+|   |   |-- cart.spec.ts
+|   |   |-- checkout.spec.ts
+|   |   `-- checkoutcomplete.spec.ts
+|   |-- setup
+|   |   `-- auth.setup.ts
+|   |-- smoke
+|   |   `-- login.spec.ts
+|   `-- visual
+|       `-- homepage.visual.spec.ts
+|-- package.json
+|-- playwright.config.ts
+`-- README.md
+```
+
+<!--
 ```
 playwright-enterprise-automation-framework
 │
@@ -189,26 +238,14 @@ playwright-enterprise-automation-framework
 │
 └── README.md
 ```
+-->
 
 ---
 
 # Installation
 
-Clone the repository:
-
-```
-git clone <repository-url>
-```
-
-Install dependencies:
-
-```
+```bash
 npm install
-```
-
-Install Playwright browsers:
-
-```
 npx playwright install
 ```
 
@@ -218,70 +255,69 @@ npx playwright install
 
 Run all tests:
 
-```
+```bash
 npm run test
 ```
 
 Run smoke tests:
 
-```
+```bash
 npm run test:smoke
 ```
 
 Run regression tests:
 
-```
+```bash
 npm run test:regression
 ```
 
 Run tests in headed mode:
 
-```
+```bash
 npm run test:headed
+```
+
+Run tests in debug mode:
+
+```bash
+npm run test:debug
 ```
 
 ---
 
-# View Reports
+# Reports
 
-Playwright HTML report:
+Open the Playwright HTML report:
 
-```
+```bash
 npm run report
 ```
 
-Allure report:
+Generate and open the Allure report:
 
-```
+```bash
 npm run allure:generate
 npm run allure:open
 ```
 
 ---
 
-# CI Pipeline
+# Workflow Secrets
 
-The GitHub Actions workflow performs the following:
+The workflow expects these GitHub Secrets:
 
-* installs dependencies
-* installs browsers
-* runs Playwright tests
-* generates Allure reports
-* uploads execution artifacts
-
-Environment variables are securely provided via **GitHub Secrets**.
+- `BASE_URL`
+- `SAUCE_USERNAME`
+- `SAUCE_PASSWORD`
 
 ---
 
-# Future Enhancements
+# Notes
 
-Planned improvements:
-
-* API automation tests using Playwright request API
-* Visual testing using Playwright screenshots
-* Multi-user authentication using multiple storage states
-* Cross-browser parallel execution
-* GitHub Pages hosted Allure reports
+- Chromium is the only active browser project in `playwright.config.ts`
+- Firefox, WebKit, mobile, and branded browser projects are scaffolded but currently commented out
+- The repository includes a `tests/visual` folder, but the branch is still primarily a UI functional automation framework
+- API automation remains a future enhancement for this branch
 
 ---
 
@@ -289,4 +325,4 @@ Planned improvements:
 
 QA Automation Portfolio Project
 
-This project demonstrates modern automation framework design using Playwright and CI/CD practices commonly used in real-world QA teams.
+This repository demonstrates a practical Playwright UI automation framework with authentication reuse, reporting, and CI integration.
