@@ -1,7 +1,4 @@
 import { test, expect } from "../../fixtures/pageFixture"
-import { LoginPage } from "../../pages/LoginPage";
-import { InventoryPage } from "../../pages/InventoryPage";
-import dotenv from 'dotenv'
 import { ENV } from "../../config/env"
 
 

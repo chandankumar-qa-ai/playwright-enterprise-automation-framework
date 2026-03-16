@@ -1,5 +1,4 @@
 import { test, expect } from "../../fixtures/pageFixture";
-import { InventoryPage } from "../../pages/InventoryPage";
 
 
 test("visual regression: inventory page layout", async ({ page, inventoryPage,}) => {
