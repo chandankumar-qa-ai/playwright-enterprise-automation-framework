@@ -4,14 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-      "test": "playwright test",
-      "test:headed": "playwright test --headed",
-      "test:debug": "playwright test --debug",
-      "test:smoke": "playwright test --grep @smoke",
-      "test:regression": "playwright test --grep @regression",
-      "report": "playwright show-report",
-      "allure:generate": "allure generate allure-results --clean -o allure-report",
-      "allure:open": "allure open allure-report"
+    "test": "playwright test",
+    "test:headed": "playwright test --headed",
+    "test:debug": "playwright test --debug",
+    "test:smoke": "playwright test --grep @smoke",
+    "test:regression": "playwright test --grep @regression",
+    "report": "playwright show-report",
+    "allure:generate": "allure generate allure-results --clean -o allure-report",
+    "allure:open": "allure open allure-report"
   },
   "repository": {
     "type": "git",
@@ -26,9 +26,18 @@
   },
   "homepage": "https://github.com/chandankumar-qa-ai/playwright-enterprise-automation-framework#readme",
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
     "@playwright/test": "^1.58.2",
     "@types/node": "^25.4.0",
-    "allure-playwright": "^3.6.0"
+    "allure-playwright": "^3.6.0",
+    "eslint": "^10.0.3",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-playwright": "^2.10.0",
+    "globals": "^17.4.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.4.0",
+    "prettier": "^3.8.1",
+    "typescript-eslint": "^8.57.1"
   },
   "dependencies": {
     "dotenv": "^17.3.1"
