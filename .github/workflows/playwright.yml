@@ -2,14 +2,14 @@ name: Playwright Tests
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main, release/v1.1 ]
 
 permissions:
   contents: write
 
 jobs:
   test:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
 
@@ -25,7 +25,7 @@ jobs:
         run: npm install
 
       - name: Install Playwright Browsers
-        run: npx playwright install --with-deps
+        run: npx playwright install
 
       - name: Run Playwright tests
         run: npm run test
@@ -54,15 +54,15 @@ jobs:
 
       - name: Create run folder
         run: |
-          RUN_ID=${{ github.run_number }}
+          $runId = "${{ github.run_number }}"
 
-          mkdir -p publish/run-$RUN_ID
-          cp -r allure-report/* publish/run-$RUN_ID
+          New-Item -ItemType Directory -Force -Path "publish/run-$runId" | Out-Null
+          Copy-Item -Recurse -Force "allure-report/*" "publish/run-$runId"
 
-          mkdir -p publish/latest
-          cp -r allure-report/* publish/latest
+          New-Item -ItemType Directory -Force -Path "publish/latest" | Out-Null
+          Copy-Item -Recurse -Force "allure-report/*" "publish/latest"
 
-          cat <<EOF > publish/index.html
+          @"
           <!DOCTYPE html>
           <html>
           <head>
@@ -73,7 +73,7 @@ jobs:
           <p>Redirecting to latest test report...</p>
           </body>
           </html>
-             EOF
+          "@ | Set-Content -Path "publish/index.html"
 
       - name: Deploy to GitHub Pages
         if: always()
