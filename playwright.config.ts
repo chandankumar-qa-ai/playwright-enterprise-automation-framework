@@ -40,7 +40,8 @@ export default defineConfig({
     screenshot:'only-on-failure',
     video:'retain-on-failure',
     trace: 'retain-on-failure',
-    headless: !!process.env.CI,
+    // Keep screenshot rendering consistent between local runs and CI.
+    headless: true,
     
     
   },
