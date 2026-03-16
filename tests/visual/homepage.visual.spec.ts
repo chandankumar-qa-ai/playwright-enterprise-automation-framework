@@ -1,13 +1,19 @@
 import { test, expect } from "../../fixtures/pageFixture"
-import { LoginPage } from "../../pages/LoginPage";
 import { InventoryPage } from "../../pages/InventoryPage";
 import dotenv from 'dotenv'
 import { ENV } from "../../config/env"
 
+const validUser = { username: 'standard_user', password: 'secret_sauce' };
 
-test("@smoke Login with Valid Credential2", async ({ loginPage,inventoryPage }) => {
-  await loginPage.launchApplication(ENV.BASE_URL!);
-  await loginPage.login(ENV.USERNAME!, ENV.PASSWORD!);
+test('visual regression: inventory page layout', async ({ page,inventoryPage }) => {
+  await page.goto("/inventory.html");
   expect(await inventoryPage.CurrentURL()).toContain("inventory");
-  expect(await inventoryPage.InventoryPageTitle()).toBe("Products");
+  await test.expect(page).toHaveScreenshot('inventory-page.png', { fullPage: true });
 });
+
+
+
+
+
+
+
