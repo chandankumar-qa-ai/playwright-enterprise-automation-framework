@@ -1,4 +1,4 @@
-import type { APIRequestContext, APIResponse } from '@playwright/test';
+import type { APIRequestContext } from '@playwright/test';
 
 export type BookingDates = {
   checkin: string;
