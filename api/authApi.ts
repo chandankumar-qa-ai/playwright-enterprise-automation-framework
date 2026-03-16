@@ -1,0 +1,20 @@
+import type { APIRequestContext } from '@playwright/test';
+
+export type AuthTokenResponse = {
+  token: string;
+};
+
+export class AuthApi {
+  private request: APIRequestContext;
+
+  constructor(request: APIRequestContext) {
+    this.request = request;
+  }
+
+  async createToken(username: string, password: string) {
+    const response = await this.request.post('/auth', {
+      data: { username, password },
+    });
+    return response.json();
+  }
+}
