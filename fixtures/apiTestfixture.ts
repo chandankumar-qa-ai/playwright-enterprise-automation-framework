@@ -5,8 +5,9 @@ export type Fixtures = {
 };
 
 export const test = base.extend<Fixtures>({
-  apiRequest: async (fixtureArgs, use) => {
-    void fixtureArgs;
+  // Playwright requires the first fixture argument to use object destructuring.
+  // eslint-disable-next-line no-empty-pattern
+  apiRequest: async ({}, use) => {
     const apiRequest = await playwrightRequest.newContext({
       baseURL: 'https://restful-booker.herokuapp.com',
       extraHTTPHeaders: {
