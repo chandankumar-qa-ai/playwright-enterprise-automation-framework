@@ -1,0 +1,1 @@
+D:\Playwright\Preparation\VIMP\Playwright\Projects\playwright-enterprise-automation-framework\playwright-enterprise-automation-framework\tests\visual\homepage.visual.spec.ts-snapshots\inventory-page-chromium-win32.png is re-generated, writing actual.
