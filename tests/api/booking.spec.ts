@@ -1,7 +1,7 @@
 import { expect } from '@playwright/test';
 import { AuthApi } from '../../api/authApi';
 import { BookingApi, Booking } from '../../api/bookingApi';
-import { test } from '../../fixtures/apiTestfixture';
+import { test } from '../../fixtures/apiClient';
 
 const defaultBooking: Booking = {
   firstname: 'Test',
