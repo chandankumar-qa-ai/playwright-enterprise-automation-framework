@@ -8,7 +8,7 @@ import dotenv from 'dotenv';
 // import dotenv from 'dotenv';
 // import path from 'path';
 // dotenv.config({ path: path.resolve(__dirname, '.env') });
-const env=process.env.TEST_ENV || 'qa'
+const env=process.env.ENV || 'qa'
 dotenv.config({path:`.env.${env}`})
 
 /**
@@ -41,17 +41,36 @@ export default defineConfig({
     video:'retain-on-failure',
     trace: 'retain-on-failure',
     // Keep screenshot rendering consistent between local runs and CI.
-    headless: true,
+    headless: false,
     
     
   },
 
   /* Configure projects for major browsers */
   projects: [
-    {
-      name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+  {
+    name: 'setup',
+    testMatch: /.*\.setup\.ts/,
+  },
+  {
+    name: 'auth',
+    use: {
+      storageState: 'storageState.json',
     },
+    dependencies: ['setup'],
+  },
+  {
+    name: 'no-auth',
+    testMatch: /.*login\.spec\.ts/,
+    use: {
+      storageState: undefined,
+    },
+  },
+
+    // {
+    //   name: 'chromium',
+    //   use: { ...devices['Desktop Chrome'] },
+    // },
 
    {
       name: 'firefox',
